@@ -37,7 +37,7 @@ in
       name = "nixos";
       group = "users";
       extraGroups = [
-        "dialout" "lp"
+        "dialout" "lp" # these are for /dev/tty* access
       ];
     };
   };
@@ -56,15 +56,13 @@ in
     wget
     curl
     busybox
-#    usbipd-mount
   ];
 
+  #i'm pretty sure all the nix-ld stuff is for vscode access. But i can't quite remember
   programs.nix-ld = {
     enable = true;
     package = inputs.nix-ld-rs.packages."${pkgs.system}".nix-ld-rs;
   };  
-
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -73,11 +71,5 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
- # shellHook = ''
-   # sudo ln -s /run/current-system/sw/bin/cat /usr/bin
-  #  sudo ln -s /run/current-system/sw/bin/usbip /usr/bin
- # '';
-
 
 }
